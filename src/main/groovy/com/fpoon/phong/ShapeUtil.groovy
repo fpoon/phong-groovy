@@ -2,20 +2,17 @@ package com.fpoon.phong
 
 import javafx.geometry.Point3D
 
-import java.awt.Dimension
-import java.awt.Point
-
 class ShapeUtil {
-    static Point3D[] getSphere(double radius, Dimension d) {
+    static Point3D[] getSphere(double radius) {
         def points = []
-        double stepy = radius/d.height
-        double stepx = radius/d.width
-        -radius.step(radius, stepx) { x ->
-            -radius.step(radius, stepy) { y->
-                if (x*x + y*y > radius*radius)
+        double stepy = 1.0
+        double stepx = 1.0
+        0.step(2*radius+stepx, stepx) { x ->
+            0.step(2*radius+stepy, stepy) { y->
+                if ((x-radius)**2 + (y-radius)**2 > radius*radius)
                     return
 
-                double z = 0;
+                double z = (radius**2 - new Point3D(radius, radius, 0).distance(new Point3D(x,y,0))**2)**0.5
 
                 points += new Point3D(x, y, z)
             }

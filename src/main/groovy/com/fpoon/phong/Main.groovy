@@ -1,16 +1,10 @@
 package com.fpoon.s3dcam
 
+import com.fpoon.phong.ShapeUtil
 import groovy.swing.SwingBuilder
-import javafx.geometry.Point3D
 
-import javax.swing.BorderFactory
-import javax.swing.BoxLayout
-import javax.swing.WindowConstants
-import java.awt.BorderLayout
-import java.awt.Color
-import java.awt.KeyEventDispatcher
-import java.awt.KeyboardFocusManager
-import java.awt.event.KeyEvent
+import javax.swing.*
+import java.awt.*
 
 class Main {
 
@@ -61,5 +55,9 @@ class Main {
         }
 
         frame.setVisible(true)
+
+        def shape = ShapeUtil.getSphere(4)
+        println "size: ${shape.size()}"
+        shape.each {println it}
     }
 }
