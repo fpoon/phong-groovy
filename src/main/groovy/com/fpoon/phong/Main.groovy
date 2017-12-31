@@ -1,6 +1,6 @@
 package com.fpoon.s3dcam
 
-import com.fpoon.phong.ShapeUtil
+import com.fpoon.phong.Phong
 import groovy.swing.SwingBuilder
 
 import javax.swing.*
@@ -10,10 +10,17 @@ class Main {
 
     static void main(String[] args) {
         def swing = new SwingBuilder()
+        def phong = new Phong()
+
+        def reset = {
+            def renderPanel = swing."renderPanel"
+            phong = new Phong()
+            phong.render(renderPanel)
+        }
 
         def frame = swing.frame(
                 title: "Phong reflection model",
-                size: [800, 600],
+                size: [400, 300],
                 defaultCloseOperation: WindowConstants.EXIT_ON_CLOSE
         ) {
             panel(layout: new BorderLayout()) {
@@ -24,6 +31,7 @@ class Main {
                 ) {
                     boxLayout(axis:BoxLayout.Y_AXIS)
                     label(text: "CONTROL PANEL")
+                    button(text: "RESET", actionPerformed: reset)
                     panel(
                             minimumSize: [100, -1],
                             border: BorderFactory.createRaisedBevelBorder()
@@ -56,8 +64,5 @@ class Main {
 
         frame.setVisible(true)
 
-        def shape = ShapeUtil.getSphere(4)
-        println "size: ${shape.size()}"
-        shape.each {println it}
     }
 }
