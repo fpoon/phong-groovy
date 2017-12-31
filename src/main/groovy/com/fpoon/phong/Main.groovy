@@ -56,7 +56,7 @@ class Main {
 
                 }
                 panel(constraints: BorderLayout.CENTER,
-                        background: Color.BLACK,
+                        background: Color.PINK,
                         id: "renderPanel"
                 )
             }

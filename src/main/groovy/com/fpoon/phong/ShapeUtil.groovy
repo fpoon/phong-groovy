@@ -15,7 +15,7 @@ class ShapeUtil {
                 if ((x-radius)**2 + (y-radius)**2 > radius*radius)
                     return
 
-                double z = (radius**2 - new Point3D(radius, radius, 0).distance(new Point3D(x,y,0))**2)**0.5
+                double z = -(radius**2 - new Point3D(radius, radius, 0).distance(new Point3D(x,y,0))**2)**0.5
 
                 points += new Point3D(x, y, z)
             }
