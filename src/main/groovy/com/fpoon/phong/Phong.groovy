@@ -14,7 +14,16 @@ class Phong {
     double ks = 0.2
     double m = 50
 
-    Point3D light = new Point3D(0, 0, -700)
+    Point3D light = new Point3D(-1, -1, -2)
+
+    Phong(ip, ia, ka, kd, ks, m) {
+        this.ip = ip
+        this.ia = ia
+        this.ka = ka
+        this.kd = kd
+        this.ks = ks
+        this.m = m
+    }
 
     double phong(Point3D v, Point3D l, Point3D n) {
         v = v.normalize()
@@ -36,12 +45,10 @@ class Phong {
         def gfx = panel.graphics
         def radius = (panel.width < panel.height ? panel.width : panel.height) * 0.5
         def shape = ShapeUtil.getSphere(radius)
-        gfx.setColor(Color.PINK)
+        def light = new Point3D(this.light.x*radius+radius, this.light.y*radius+radius, this.light.z*radius)
+        gfx.setColor(Color.GRAY)
         gfx.fillRect(0, 0, panel.width, panel.height)
         shape.each {
-//            gfx.setColor(new Color(it.z/radius as float, 1f, 1f))
-//            println "Color: ${gfx.getColor()}"
-//            gfx.fillOval(it.x as int, it.y as int, 2, 2)
 
             def v = new Point3D(0, 0, -it.z)
             def l = light.subtract(it)
@@ -54,8 +61,6 @@ class Phong {
             p += ia*ka
 
             p = crop(p) as float
-
-            println p
 
             gfx.setColor( new Color(p, p, p))
             gfx.fillOval(it.x as int, it.y as int, 2, 2)
