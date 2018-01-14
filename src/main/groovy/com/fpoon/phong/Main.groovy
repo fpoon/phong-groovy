@@ -24,15 +24,30 @@ class Main {
                 bottomRight: new Point3D(1, 1, -2)
         ]
 
+        def materials = [
+                plastic: [ka: 0.45, kd: 0.9, ks: 0.2, m: 10],
+                chalk: [ka: 0.45, kd: 0.9, ks: 0.01, m: 5],
+                metal: [ka: 0.45, kd: 0.25, ks: 0.75, m: 50],
+                wood: [ka: 0.45, kd: 0.4, ks: 0.6, m: 50],
+
+        ];
+
         def draw = {
+            def material = materials[swing."materialGroup".getSelection().getActionCommand()]
             def renderPanel = swing."renderPanel"
             def phong = new Phong(
-                    swing."ipSlider".value/100,
-                    swing."iaSlider".value/100,
-                    swing."kaSlider".value/100,
-                    swing."kdSlider".value/100,
-                    swing."ksSlider".value/100,
-                    swing."mSlider".value
+//                    swing."ipSlider".value/100,
+//                    swing."iaSlider".value/100,
+//                    swing."kaSlider".value/100,
+//                    swing."kdSlider".value/100,
+//                    swing."ksSlider".value/100,
+//                    swing."mSlider".value
+                    1.0,
+                    0.1,
+                    material['ka'],
+                    material['kd'],
+                    material['ks'],
+                    material['m']
             )
 
             phong.light = lights[swing."lightGroup".getSelection().getActionCommand()]
@@ -53,6 +68,26 @@ class Main {
                         border: BorderFactory.createRaisedBevelBorder()
                 ) {
                     boxLayout(axis:BoxLayout.X_AXIS)
+//                    panel(
+////                            minimumSize: [100, -1],
+//                            border: BorderFactory.createRaisedBevelBorder()
+//                    ) {
+//                        label(text: "CONTROL PANEL")
+//                        button(text: "DRAW", actionPerformed: draw)
+//                        boxLayout(axis: BoxLayout.Y_AXIS)
+//                        slider(id: "mSlider", value: 50, minimum: 1, maximum: 500)
+//                        label(text: bind(source: swing."mSlider", sourceProperty: "value", converter:{"n: ${it}"}))
+//                        slider(id: "ipSlider", value: 100, minimum: 0, maximum: 100)
+//                        label(text: bind(source: swing."ipSlider", sourceProperty: "value", converter:{"ip: ${sprintf("%.2f", it/100)}"}))
+//                        slider(id: "iaSlider", value: 10, minimum: 0, maximum: 100)
+//                        label(text: bind(source: swing."iaSlider", sourceProperty: "value", converter:{"ia: ${sprintf("%.2f", it/100)}"}))
+//                        slider(id: "kaSlider", value: 45, minimum: 0, maximum: 100)
+//                        label(text: bind(source: swing."kaSlider", sourceProperty: "value", converter:{"ka: ${sprintf("%.2f", it/100)}"}))
+//                        slider(id: "kdSlider", value: 90, minimum: 0, maximum: 100)
+//                        label(text: bind(source: swing."kdSlider", sourceProperty: "value", converter:{"kd: ${sprintf("%.2f", it/100)}"}))
+//                        slider(id: "ksSlider", value: 20, minimum: 0, maximum: 100)
+//                        label(text: bind(source: swing."ksSlider", sourceProperty: "value", converter:{"ks: ${sprintf("%.2f", it/100)}"}))
+//                    }
                     panel(
 //                            minimumSize: [100, -1],
                             border: BorderFactory.createRaisedBevelBorder()
@@ -60,18 +95,11 @@ class Main {
                         label(text: "CONTROL PANEL")
                         button(text: "DRAW", actionPerformed: draw)
                         boxLayout(axis: BoxLayout.Y_AXIS)
-                        slider(id: "mSlider", value: 50, minimum: 1, maximum: 500)
-                        label(text: bind(source: swing."mSlider", sourceProperty: "value", converter:{"n: ${it}"}))
-                        slider(id: "ipSlider", value: 100, minimum: 0, maximum: 100)
-                        label(text: bind(source: swing."ipSlider", sourceProperty: "value", converter:{"ip: ${sprintf("%.2f", it/100)}"}))
-                        slider(id: "iaSlider", value: 10, minimum: 0, maximum: 100)
-                        label(text: bind(source: swing."iaSlider", sourceProperty: "value", converter:{"ia: ${sprintf("%.2f", it/100)}"}))
-                        slider(id: "kaSlider", value: 45, minimum: 0, maximum: 100)
-                        label(text: bind(source: swing."kaSlider", sourceProperty: "value", converter:{"ka: ${sprintf("%.2f", it/100)}"}))
-                        slider(id: "kdSlider", value: 90, minimum: 0, maximum: 100)
-                        label(text: bind(source: swing."kdSlider", sourceProperty: "value", converter:{"kd: ${sprintf("%.2f", it/100)}"}))
-                        slider(id: "ksSlider", value: 20, minimum: 0, maximum: 100)
-                        label(text: bind(source: swing."ksSlider", sourceProperty: "value", converter:{"ks: ${sprintf("%.2f", it/100)}"}))
+                        materialGroup = buttonGroup(id: "materialGroup")
+                        radioButton(text: "Wood", buttonGroup: materialGroup, selected: true, actionCommand: "wood")
+                        radioButton(text: "Metal", buttonGroup: materialGroup,  actionCommand: "metal")
+                        radioButton(text: "Plastic", buttonGroup: materialGroup, actionCommand: "plastic")
+                        radioButton(text: "Chalk", buttonGroup: materialGroup, actionCommand: "chalk")
                     }
                     panel(
 //                            minimumSize: [100, -1],
