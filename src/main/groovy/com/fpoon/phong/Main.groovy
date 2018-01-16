@@ -25,10 +25,10 @@ class Main {
         ]
 
         def materials = [
-                plastic: [ka: 0.45, kd: 0.9, ks: 0.2, m: 10],
-                chalk: [ka: 0.45, kd: 0.9, ks: 0.01, m: 5],
-                metal: [ka: 0.45, kd: 0.25, ks: 0.75, m: 50],
-                wood: [ka: 0.45, kd: 0.4, ks: 0.6, m: 50],
+                plastic: [ka: 0.45, kd: 0.9, ks: 0.2, m: 50],
+                chalk: [ka: 0.45, kd: 0.9, ks: 0.01, m: 25],
+                metal: [ka: 0.45, kd: 0.4, ks: 0.6, m: 100],
+                wood: [ka: 0.45, kd: 0.6, ks: 0.4, m: 10],
 
         ];
 
